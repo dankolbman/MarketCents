@@ -12,7 +12,6 @@ def load_dictionary(path):
 		if(line[0] != '#'):
 			l = line.split()
 			names[l[0]] = l[1]
-	print names
 	return names
 	f.close
 	

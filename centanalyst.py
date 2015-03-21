@@ -1,7 +1,8 @@
 import os
+import numpy as np
 import twitter
 from textblob import TextBlob
-from cluster_symbols import cluster_symbols
+from cluster_symbols import cluster_symbols, load_dictionary
 
 def symbol_sentiment( api, terms ):
   """
@@ -39,7 +40,7 @@ def cluster_average( group, sentiments ):
   average, standard deviation
   """
   group_sentiments = [ sentiments[sent] for sent in group ]
-  return np.mean(group_sentiments), np.stdev(group_sentiments)
+  return np.mean(group_sentiments), np.std(group_sentiments)
 
 
 def write_sentiments( symbols, path='data/symbol_sentiments.txt' ):
@@ -117,13 +118,13 @@ def main():
 
   SENTIMENT_PATH = 'data/symbol_sentiments.txt' 
   # Force sentiment analysis from statuses on twitter
-  FORCE_TWITTER = False;
+  FORCE_TWITTER = True;
 
   # Verify with twitter
   api = verify()
 
   # Load symbol keyword terms
-  sym_terms = read_terms( 'data/terms.txt' )
+  sym_terms = read_terms( 'data/symbol_dictionary.txt' )
 
   # Evaluate/Load setiments for symbols
   sym_sent = dict()
@@ -141,8 +142,11 @@ def main():
     print 'Wrote sentiment analysis to {0}'.format(SENTIMENT_PATH)
 
   # Get groups
-  groups = cluster_symbols()
-  print groups
+  symbol_names = load_dictionary( 'data/symbol_dictionary.txt' )
+  groups = cluster_symbols( symbol_names )
+
+  group_avgs = [cluster_average(group, sym_sent) for group in groups]
+  print group_avgs
 
 
 if __name__ == '__main__':
