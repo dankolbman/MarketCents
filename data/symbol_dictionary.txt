@@ -4,7 +4,7 @@ AMZN Amazon
 IBM IBM
 YHOO Yahoo
 SNDK Sandisk
-EA Electronic Arts
+EA ElectronicArts
 XRX Xerox
 SNE Sony
 FB Facebook
@@ -13,11 +13,12 @@ LNKD LinkedIn
 PCRFY Panasonic
 ADEP Adobe
 ADSK Autodesk
-AMD Advanced Micro Devices
+AMD AdvancedMicroDevices
 CSCO Cisco
 HPQ Hewlett-Packard
 INFY Infosys
 INTU Intuit
+KNM Konami
 KYO Kyocera
 LOGI Logitech
 MRVL Marvell
@@ -26,4 +27,16 @@ MSI Motorola
 NOK Nokia
 NVDA NVIDIA
 OMC Omnicom
-NXPI NXP Semiconductors
+NXPI NXPSemiconductors
+ORCL Oracle
+RHT RedHat
+CRM Salesforce.com
+SWKS SkyworksSolutions
+TSM TaiwanSemiconductorManufacturing
+TTWO Take-TwoInteractive
+TXN TexasInstruments
+TWTR Twitter
+WDC WesternDigital
+WIT Wipro
+WDAY Workday
+ZNGA Zynga
