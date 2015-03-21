@@ -5,10 +5,7 @@ from matplotlib import finance
 from matplotlib.collections import LineCollection	
 from sklearn import cluster, covariance, manifold
 
-def clusterCompanies():
-	###############################################################################
-	# Retrieve the data from Internet
-
+def cluster_symbols():
 	# Choose a time period 
 	d1 = datetime.datetime(2013, 1, 1)
 	d2 = datetime.datetime(2015, 1, 1)
@@ -36,7 +33,6 @@ def clusterCompanies():
 
 	open = np.array([q.open for q in quotes]).astype(np.float)
 	close = np.array([q.close for q in quotes]).astype(np.float)
-
 	# The daily variations of the quotes are what carry most information
 	variation = close - open
 
@@ -60,8 +56,9 @@ def clusterCompanies():
 	for i in range(n_labels + 1):
 		stockList.append(symbols[labels == i])
 		
-	np.savetxt('ClusterList.txt',stockList, delimiter = ' ', fmt="%s")
-		#txtF.write('Cluster %i: %s' % ((i + 1), ', '.join(names[labels == i])))
+	np.savetxt('data/clustered_symbols.txt',stockList, delimiter = ' ', fmt="%s")
 	return stockList
-		
-clusterCompanies()
+
+
+if __name__ == '__main__':		
+  cluster_symbols()
