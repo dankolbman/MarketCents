@@ -5,26 +5,22 @@ from matplotlib import finance
 from matplotlib.collections import LineCollection	
 from sklearn import cluster, covariance, manifold
 
-def cluster_symbols():
+def load_dictionary(path):
+	f = open(path)
+	names = dict()
+	for line in f:
+		if(line[0] != '#'):
+			l = line.split()
+			names[l[0]] = l[1]
+	print names
+	return names
+	f.close
+	
+
+def cluster_symbols(symbol_dict):
 	# Choose a time period 
 	d1 = datetime.datetime(2013, 1, 1)
 	d2 = datetime.datetime(2015, 1, 1)
-
-	# symbol definitions
-	symbol_dict = {
-		'MSFT': 'Microsoft',
-		'AAPL': 'Apple',
-		'AMZN': 'Amazon',
-		'IBM': 'IBM',
-		'YHOO': 'Yahoo',
-		'SNDK': 'Sandisk',
-		'EA': 'Electronic Arts',
-		'XRX': 'Xerox',
-		'SNE': 'Sony',
-		'FB': 'Facebook',
-		'GOOGL': 'Google',
-		'LNKD': 'LinkedIn',
-		'PCRFY': 'Panasonic'}
 
 	symbols, names = np.array(list(symbol_dict.items())).T
 
@@ -56,9 +52,12 @@ def cluster_symbols():
 	for i in range(n_labels + 1):
 		stockList.append(symbols[labels == i])
 		
-	np.savetxt('data/clustered_symbols.txt',stockList, delimiter = ' ', fmt="%s")
+	np.savetxt('clustered_symbols.txt',stockList, delimiter = ' ', fmt="%s")
 	return stockList
 
 
-if __name__ == '__main__':		
-  cluster_symbols()
+if __name__ == '__main__':
+  path = 'symbol_dictionary.txt'
+  names = load_dictionary(path)
+  cluster_symbols(names)
+  

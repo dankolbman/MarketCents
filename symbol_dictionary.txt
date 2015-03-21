@@ -1,0 +1,13 @@
+MSFT Microsoft
+AAPL Apple
+AMZN Amazon
+IBM IBM
+YHOO Yahoo
+SNDK Sandisk
+EA Electronic Arts
+XRX Xerox
+SNE Sony
+FB Facebook
+GOOGL Google
+LNKD LinkedIn
+PCRFY Panasonic

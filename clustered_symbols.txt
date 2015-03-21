@@ -1,0 +1,2 @@
+['SNE' 'EA' 'AAPL' 'SNDK' 'XRX']
+['IBM' 'FB' 'PCRFY' 'YHOO' 'AMZN' 'LNKD' 'MSFT' 'GOOGL']
