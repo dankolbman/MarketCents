@@ -52,12 +52,12 @@ def cluster_symbols(symbol_dict):
 	for i in range(n_labels + 1):
 		stockList.append(symbols[labels == i])
 		
-	np.savetxt('clustered_symbols.txt',stockList, delimiter = ' ', fmt="%s")
+	np.savetxt('data/clustered_symbols.txt',stockList, delimiter = ' ', fmt="%s")
 	return stockList
 
 
 if __name__ == '__main__':
-  path = 'symbol_dictionary.txt'
+  path = 'data/symbol_dictionary.txt'
   names = load_dictionary(path)
   cluster_symbols(names)
   

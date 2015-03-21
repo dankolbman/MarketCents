@@ -1,5 +1,7 @@
+import os
 import twitter
 from textblob import TextBlob
+from cluster_symbols import cluster_symbols
 
 def symbol_sentiment( api, terms ):
   """
@@ -15,7 +17,7 @@ def symbol_sentiment( api, terms ):
   -------
   A sentiment between -1.0 and 1.0
   """
-  search = api.GetSearch(term=term, count=100)
+  search = api.GetSearch(term=terms, count=100)
   blobs = [ TextBlob(status.text) for status in search ]
   sentiments = [ blob.sentiment.polarity for blob in blobs ]
   filtered_sentiments = filter(lambda a: a!=0.0, sentiments)
@@ -40,15 +42,34 @@ def cluster_average( group, sentiments ):
   return np.mean(group_sentiments), np.stdev(group_sentiments)
 
 
-def write_sentiment( symbols, path='data/symbol_sentiments.txt' ):
+def write_sentiments( symbols, path='data/symbol_sentiments.txt' ):
   """
   Writes sentiments obtained by averaging textblob sentiments of twitter statuses
   to a file
   """
   with open(path, 'w') as f:
-    for sym in sym_sent:
-      f.write('{0} {1}\n'.format(sym, sym_sent[sym]))
+    for sym in symbols:
+      f.write('{0} {1}\n'.format(sym, symbols[sym]))
     f.close()
+
+
+def read_sentiments( path ):
+  """
+  Read sentiments from file into sentiment dictionary keyed by symbol
+
+  Parameters
+  ----------
+  path
+    the path of the sentiment data file
+  """
+  
+  sentiments = dict()
+  with open( path, 'r' ) as f:
+    for line in f:
+      if(line[0] != '#'):
+        l = line.split()
+        sentiments[l[0]] = l[1]
+  return sentiments
 
 
 def read_terms( path ):
@@ -94,22 +115,34 @@ def main():
   Suggests action to take based on sentinent
   """
 
-  # Verify
+  SENTIMENT_PATH = 'data/symbol_sentiments.txt' 
+  # Force sentiment analysis from statuses on twitter
+  FORCE_TWITTER = False;
+
+  # Verify with twitter
   api = verify()
+
   # Load symbol keyword terms
-  sym_terms = read_terms( 'terms.txt' )
+  sym_terms = read_terms( 'data/terms.txt' )
 
   # Evaluate/Load setiments for symbols
   sym_sent = dict()
-  for sym in sym_terms:
-    sentiment = symbol_sentiment( api, sym_terms(sym) )
-    sym_sent[sym] = sentiment
-
-  # Write out sentiment evalulations to file
-  write_sentiments( sym_sent )
+  if os.path.exists( SENTIMENT_PATH ) and not FORCE_TWITTER:
+    # Load sentiment from file and save twitter calls
+    sym_sent = read_sentiments( SENTIMENT_PATH )
+  else:
+    # Create sentiment from twitter
+    for sym in sym_terms:
+      sentiment = symbol_sentiment( api, sym_terms[sym] )
+      sym_sent[sym] = sentiment
+    print 'Analyzed {0} tweets'.format(len(sym_terms))
+    # Write out sentiment evalulations to file
+    write_sentiments( sym_sent, SENTIMENT_PATH )
+    print 'Wrote sentiment analysis to {0}'.format(SENTIMENT_PATH)
 
   # Get groups
-  `
+  groups = cluster_symbols()
+  print groups
 
 
 if __name__ == '__main__':
