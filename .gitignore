@@ -1,3 +1,4 @@
 *.auth
 *.swp
+*.pyc
 venv/
