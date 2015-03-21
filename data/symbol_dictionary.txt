@@ -11,3 +11,19 @@ FB Facebook
 GOOGL Google
 LNKD LinkedIn
 PCRFY Panasonic
+ADEP Adobe
+ADSK Autodesk
+AMD Advanced Micro Devices
+CSCO Cisco
+HPQ Hewlett-Packard
+INFY Infosys
+INTU Intuit
+KYO Kyocera
+LOGI Logitech
+MRVL Marvell
+MXIM Maxim
+MSI Motorola
+NOK Nokia
+NVDA NVIDIA
+OMC Omnicom
+NXPI NXP Semiconductors
